@@ -27,12 +27,30 @@ list instead of being covered up.
 
 ## Inputs
 
-- **Target role and city.** Always required; ask if missing.
-- **Persona age.** Ask for it. If the user leaves it open, use about 30. The
-  document states the age, and the birth year every date is measured from.
+**Ask once, up front, never wait.** Once the role and city are known, ask in a
+single round only what the user has not already stated:
+
+1. Which file is the source of truth for your real record?
+2. How old should the mirror persona be?
+3. Is there a posting to use?
+
+Ask nothing further before compiling. An answer that is missing or unusable
+falls back to a default, and is raised again in the document's questions list:
+
+| input | missing or unusable answer | fallback |
+|---|---|---|
+| profile file | none, or "another file" with no path given | the default record structure, every field a gap |
+| persona age | none | about 30 |
+| posting | none, or unreadable | no posting |
+
+- **Target role and city.** The one thing the skill cannot run without; ask if
+  missing.
+- **Persona age.** The document states the age, and the birth year every date
+  is measured from.
 - **Posting** (optional). Pasted text, or a URL readable without signing in;
-  record the URL and read date. If the posting is behind a sign-in, stop that
-  step and ask the user to paste the text. Never offer to authenticate.
+  record the URL and read date. If the posting is behind a sign-in, do not
+  read it and never offer to authenticate. Compile without it, and ask for the
+  text in the questions list.
 - **Profile file.** The user names one file in their workspace as the source of
   truth for their record. It is the **only** source for the real projection,
   and this skill never modifies it.
@@ -68,7 +86,7 @@ One markdown file, with every section in it:
 - or a directory the user names.
 
 Substitute real values in the name. If the posting does not name the company or
-the role, ask, and write nothing until the user answers. If the file already
+the role, name the file by city and the target role instead. If the file already
 exists, show the change as a diff and overwrite nothing until the user approves.
 Mark the document `draft`.
 

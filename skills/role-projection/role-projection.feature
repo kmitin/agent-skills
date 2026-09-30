@@ -36,12 +36,34 @@ Feature: Role projection
       When the skill compiles the document
       Then both sections are built against the posting's requirements
 
-    Scenario: The persona's age is asked, not assumed
-      Given the user has not stated the persona's age
+  Rule: The skill asks its questions once, up front, and never waits on an answer
+
+    Scenario: The skill opens with its questions
+      Given the target role and city are known
       When the skill starts
-      Then it asks the user for the persona's age
-      And if the user leaves it open, the persona is about 30
-      And the document states the age and the birth year every date is measured from
+      Then it asks, in a single round, only what the user has not already stated
+        | question                                            |
+        | which file is the source of truth for the real record |
+        | how old the mirror persona should be                  |
+        | whether there is a posting to use                      |
+      And it asks nothing further before compiling
+
+    Scenario Outline: An answer is missing or unusable
+      Given the answer about <input> is <answer>
+      When the skill compiles the document
+      Then it uses <fallback>
+      And it does not ask again before compiling
+      And the unresolved input is raised in the document's questions list
+
+      Examples:
+        | input             | answer                                       | fallback                                         |
+        | the profile file  | missing, or "another file" with no path given | the default record structure, every field a gap |
+        | the persona's age | missing                                      | an age of about 30                               |
+        | the posting       | missing, or unreadable                       | no posting                                       |
+
+    Scenario: The persona's age is stated in the document
+      When the skill compiles the document
+      Then the document states the age, and the birth year every date is measured from
 
   Rule: The mirror persona is openly fictional and identifies no real person or company
 
@@ -354,8 +376,9 @@ Feature: Role projection
       Given the user supplies a URL that requires signing in to read
       When the skill attempts to read the posting
       Then it stops that step
-      And it asks the user to paste the posting text
       And it does not offer to authenticate
+      And it compiles the document without a posting
+      And it asks for the posting text in the document's questions list
 
     Scenario: The job is done
       When the projection is complete
@@ -428,5 +451,5 @@ Feature: Role projection
     Scenario: The posting does not name the company or the role
       Given the company or the role cannot be read from the posting
       When the skill is about to name the file
-      Then it asks the user for the missing name
-      And it does not write the file until the name is supplied
+      Then it names the file by city and role instead, using the target role it was given
+      And it does not wait for the missing name
