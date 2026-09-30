@@ -34,8 +34,27 @@ list instead of being covered up.
   record the URL and read date. If the posting is behind a sign-in, stop that
   step and ask the user to paste the text. Never offer to authenticate.
 - **Profile file.** The user names one file in their workspace as the source of
-  truth for their record. If they have not named one, ask. It is the **only**
-  source for the real projection, and this skill never modifies it.
+  truth for their record. It is the **only** source for the real projection,
+  and this skill never modifies it.
+  **A missing profile never blocks.** If the user names none and none can be
+  found, do not stop. Build the mirror in full, state in the real projection
+  that no profile was available, list every field of the default record
+  structure as a gap, and make the first question ask for the profile's path,
+  offering that structure as its shape.
+- **Default record structure**: the shape of a working CV, without its content.
+  Use it to measure a record, never as a source of facts. In order:
+  - **headline**: the roles the person is known for, separated by " | ";
+  - **summary**: a few short paragraphs: years, domains, what they build;
+  - **technical skills**, grouped by category: languages, data, frameworks,
+    storage, cloud, operations;
+  - **professional highlights**: the handful of results worth reading first;
+  - **experience**: per position: title at employer, city,
+    `MM.YYYY – MM.YYYY`, core technologies, project, bullets;
+  - **education**: degree, field, institution, country, date;
+  - **certification**: name and issuer.
+
+  It holds no contact details, photo, or links. When a profile lacks one of
+  these sections, list that section in the gaps under its name.
 - **Pasted CV or LinkedIn text** may be read, but is never stored and never
   cited. A fact in it that would close a gap becomes the question "add this to
   your profile file?".

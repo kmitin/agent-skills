@@ -176,6 +176,37 @@ Feature: Role projection
       Then every citation points at the profile file
       And none points at the mirror persona
 
+  Rule: A missing profile never blocks the document
+
+    Scenario: No profile file is named or found
+      Given no profile file is named, and none can be found
+      When the skill compiles the document
+      Then it does not stop to wait for one
+      And the mirror persona is built in full
+      And the real projection states that no profile was available
+      And its gap list is the default record structure, with every field a gap
+      And the first question asks for the path to a profile file, offering the default record structure as the shape to write one in
+
+    Scenario: The default record structure
+      When the skill needs a record structure to measure against
+      Then it uses these sections, in this order
+        | section                 | holds                                                                        |
+        | headline                | the roles the person is known for, separated by " \| "                       |
+        | summary                 | a few short paragraphs: years, domains, what they build                      |
+        | technical skills        | grouped by category: languages, data, frameworks, storage, cloud, operations |
+        | professional highlights | the handful of results worth reading first                                   |
+        | experience              | per position: title at employer, city, MM.YYYY – MM.YYYY, core technologies, project, bullets |
+        | education               | degree, field, institution, country, date                                    |
+        | certification           | name and issuer                                                              |
+      And it holds no contact details, photo, or links
+      # The structure of a working CV, stripped of its content. It is a shape to
+      # measure a record against, never a source of facts.
+
+    Scenario: A profile exists but lacks sections of the default structure
+      Given the profile file has no content for some sections of the default record structure
+      When the skill assembles the real projection
+      Then each missing section appears in the gap list, under its section name
+
   Rule: Every claim in the real projection cites the profile file
 
     Scenario Outline: A claim is supported by the profile
