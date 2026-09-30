@@ -36,6 +36,13 @@ Feature: Role projection
       When the skill compiles the document
       Then both sections are built against the posting's requirements
 
+    Scenario: The persona's age is asked, not assumed
+      Given the user has not stated the persona's age
+      When the skill starts
+      Then it asks the user for the persona's age
+      And if the user leaves it open, the persona is about 30
+      And the document states the age and the birth year every date is measured from
+
   Rule: The mirror persona is openly fictional and identifies no real person or company
 
     Scenario: The document header marks the mirror as fictional
@@ -68,16 +75,51 @@ Feature: Role projection
       # "A Dutch bank, in-house IT", "a payments scale-up", "an MSc CS from a
       # Dutch technical university" — never a name a reader could look up.
 
-    Scenario: The mirror has a fixed shape per role
+  Rule: The mirror persona is a person who grew up in the city, shown as a CV
+
+    Scenario: The CV is the representation of the persona
       When the skill builds the mirror persona
-      Then it has a headline and a short intro
-      And for each role in its history it states
-        | field                                             |
-        | years                                             |
-        | stack                                             |
-        | two or three responsibilities                     |
-        | a signature project with an outcome               |
-        | one line on what this signals to a staff interviewer |
+      Then it is presented as a CV with these sections, in this order
+        | section           | holds                                                        |
+        | headline          | the role, in one line                                        |
+        | introduction      | a short introductory word, in the persona's own voice        |
+        | work experience   | positions: title, generic employer, city, MM.YYYY – MM.YYYY  |
+        | projects          | per position or standalone: what was built, and its outcome  |
+        | education         | the path through the local education system                  |
+        | side activities   | volunteering, student life, side jobs, community             |
+        | languages         | the languages the persona speaks, and how well               |
+      And a section "how this person operates" follows the CV
+
+    Scenario Outline: The number and length of positions vary
+      Given the persona is <age> and the target role is <seniority>
+      When the skill builds the work experience
+      Then the number of positions follows from a realistic path to <seniority> at <age>
+      And no fixed count and no fixed tenure length is imposed
+      And tenures differ in length as real careers do
+      And positions may overlap, as a side engagement beside employment does
+
+      Examples:
+        | age | seniority |
+        | 27  | mid-level |
+        | 30  | senior    |
+        | 38  | staff     |
+
+    Scenario: The persona grew up where the role is
+      When the skill builds the education and side activities
+      Then they follow the local education system of the city's country
+      And they include the activities typical for someone who grew up and studied there
+      And each activity is one people there actually do, not a national stereotype
+
+    Scenario: The timeline fits the birth year
+      When the skill builds the mirror persona
+      Then every milestone falls at a plausible age for the local system
+      And no position starts before the education that precedes it could have ended
+
+    Scenario: How this person operates
+      When the skill writes "how this person operates"
+      Then it describes how the persona behaves in an interview, a disagreement, a salary conversation, and when giving feedback
+      And it states how a staff-level interviewer reads that behaviour
+      And each behaviour traces to something in the persona's path, not to nationality alone
 
   Rule: Every technology passes the date check
 
@@ -91,6 +133,18 @@ Feature: Role projection
         | section            |
         | the mirror persona |
         | the real projection |
+
+    Scenario: A local custom is dated against the birth year
+      Given a custom, requirement, or institution in the persona's path existed only for certain years
+      When the skill builds the mirror persona
+      Then the persona has it only if they were the right age during those years
+      # E.g. a school community-service requirement that applied only to some
+      # cohorts: a persona born outside them did not do it.
+
+    Scenario: A local custom cannot be verified
+      Given the skill cannot establish that a custom exists in that place, or when
+      When the skill builds the mirror persona
+      Then the custom is left out
 
     Scenario: A technology's release year cannot be established
       Given the skill cannot establish when <technology> was first released
@@ -145,6 +199,13 @@ Feature: Role projection
       And each fact from it that would close a gap is listed as a question: "add this to your profile file?"
       # A fact enters a projection only once the user has carried it into
       # the profile file, where every citation can resolve.
+
+    Scenario: The reason a lead-with item fits is not a market claim
+      When the skill states why a lead-with item fits the role
+      Then the reason refers only to the posting's requirements or the role as named
+      And it asserts nothing about the job market, hiring trends, or what employers prefer
+      # "This city hires on stack X more than any other" is a market claim, and
+      # nothing in the profile file supports it.
 
     Scenario: A composed headline or intro contains only cited facts
       When the skill drafts the tailored headline and intro
@@ -306,6 +367,12 @@ Feature: Role projection
         | a lead-with section of real projects and skills, each cited               |
         | a gap list of requirements and mirror fields the record does not support |
         | a list of questions for the user                                      |
+
+    Scenario: Questions are few
+      When the skill completes a projection
+      Then the questions list holds at most three questions
+      And they are the ones whose answers change the most, whichever rule raised them
+      And every other unknown is recorded in the gap list, not as a question
 
     Scenario: A projection is compiled into one document
       When the skill completes a projection

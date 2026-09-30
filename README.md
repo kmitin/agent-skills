@@ -12,7 +12,7 @@ the scenarios to see exactly what a skill will and will not do.
 
 | skill | what it does |
 |---|---|
-| [`role-projection`](skills/role-projection/) | Maps your real experience onto a target role, beside an openly fictional mirror of the ideal candidate. Every real claim cites your profile file; everything unsupported is listed as a gap. Never invents facts, never creates accounts, never applies. |
+| [`role-projection`](skills/role-projection/) | Maps your real experience onto a target role, beside an openly fictional mirror: a person who grew up in that city, shown as a CV, with a section on how they operate. Every real claim cites your profile file; everything unsupported is listed as a gap. Never invents facts, never creates accounts, never applies. |
 
 ## Install
 

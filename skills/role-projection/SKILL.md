@@ -4,10 +4,11 @@ description: >-
   Use when the user gives a target role and a city (optionally a job posting, as
   text or a public URL) and wants to see how their real experience maps onto that
   role. Produces one markdown document with two sections: an openly FICTIONAL
-  mirror persona of the ideal candidate, and a REAL PROJECTION of the user's own
-  record — lead-with items each cited to their profile file, a gap list, and
-  questions. Never invents facts about the user, never creates accounts, never
-  applies or submits anything.
+  mirror persona, a person who grew up in that city, presented as a CV with a
+  section on how they operate; and a REAL PROJECTION of the user's own record,
+  with lead-with items each cited to their profile file, a gap list, and at most
+  three questions. Never invents facts about the user, never creates accounts,
+  and never applies or submits anything.
 ---
 
 # Role projection
@@ -27,6 +28,8 @@ list instead of being covered up.
 ## Inputs
 
 - **Target role and city.** Always required; ask if missing.
+- **Persona age.** Ask for it. If the user leaves it open, use about 30. The
+  document states the age, and the birth year every date is measured from.
 - **Posting** (optional). Pasted text, or a URL readable without signing in;
   record the URL and read date. If the posting is behind a sign-in, stop that
   step and ask the user to paste the text. Never offer to authenticate.
@@ -62,10 +65,19 @@ Mark the document `draft`.
    - Employers, clients, universities, and certification issuers are described
      generically ("a payments scale-up", "a technical university"), never as a
      real, named organisation.
-   - A headline and a short intro.
-   - For each role in its history: years; stack; two or three
-     responsibilities; a signature project with an outcome; one line on what
-     this signals to a staff-level interviewer.
+   - A person who grew up in the city, presented as a CV, in this order:
+     - **headline**: the role, in one line;
+     - **introduction**: a short introductory word in the persona's own voice;
+     - **work experience**: title, generic employer, city,
+       `MM.YYYY – MM.YYYY`, stack, and a few lines of what they did;
+     - **projects**: what was built, and its outcome;
+     - **education**: the path through the local education system;
+     - **side activities**: volunteering, student life, side jobs, community;
+     - **languages**, and how well each is spoken.
+   - **How this person operates**, after the CV: how they behave in an
+     interview, a disagreement, a salary conversation, and when giving
+     feedback. For each, how a staff-level interviewer reads it, and what in
+     the persona's path it traces to. Never nationality alone.
 3. **REAL PROJECTION**
    - A headline and intro built only from the profile file. Add no
      self-assessing adjective ("expert", "seasoned", "proven") that the profile
@@ -74,7 +86,8 @@ Mark the document `draft`.
      it came from.
    - **Gaps:** posting requirements, and mirror fields, that the record does
      not support.
-   - **Questions** for the user.
+   - **Questions**: at most three, the ones whose answers change the most,
+     whichever rule raised them. Every other unknown goes in the gap list.
 
 No template placeholder, angle-bracket token, or "TBD" survives into the file.
 Every mirror value is a concrete fictional value. Every real value comes from the
@@ -88,7 +101,23 @@ first public release. If the release year cannot be established, leave the
 technology out of the mirror. If the profile dates a technology before it
 existed, do not use the claim; raise a question naming the conflict.
 
+**The persona's life is variable, and checked.**
+- The number of positions follows a realistic path to the target seniority at
+  the persona's age. Fix no count and no tenure length. Tenures differ, and a
+  side engagement may overlap employment.
+- Education and side activities follow the local system of the city's country,
+  and are things people who grew up there actually do, not national
+  stereotypes.
+- Every milestone falls at a plausible age. No position starts before the
+  education preceding it could have ended.
+- A local custom or requirement that existed only for some years appears only
+  if the persona was the right age during them. Leave out any custom you
+  cannot verify. A wrong cultural detail breaks the mirror faster than a wrong
+  technology.
+
 **Real projection: cite it or list it as a gap.**
+- The reason a lead-with item fits refers only to the posting or the role as
+  named. Never assert anything about the job market or hiring trends.
 - Requirement stated in the profile → lead with it, with a citation.
 - Requirement not stated → gap list. It stays out of the headline, intro, and
   lead-with section.
