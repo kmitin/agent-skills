@@ -143,6 +143,30 @@ Feature: Role projection
       And it states how a staff-level interviewer reads that behaviour
       And each behaviour traces to something in the persona's path, not to nationality alone
 
+  Rule: Mirror experience and projects are concrete and measured
+    # Added 2026-09-30: a mirror is only useful as a standard if its results
+    # are specific enough to measure the real record against.
+
+    Scenario: Every mirror project carries a measured outcome
+      When the skill writes a project in the mirror
+      Then it states what changed, with a before and an after
+      And a vague outcome such as "improved" or "several times" is not accepted
+
+    Scenario: The mirror carries a full body of results
+      When the skill writes the projects section of the mirror
+      Then every substantive position contributes at least one measured project, typically two
+      And a junior position or a side engagement may contribute none
+
+    Scenario: Every mirror position names what the person owned
+      When the skill writes a position in the mirror
+      Then its lines name systems, teams or processes the person owned
+      And each line is specific to that employer's kind of business
+
+    Scenario: Every operating trait names its risk
+      When the skill writes how the persona operates
+      Then each trait states how an interviewer reads it, including its downside
+      And traces it to a specific event in the persona's path, not to a general circumstance
+
   Rule: Every technology passes the date check
 
     Scenario Outline: A technology is dated before it existed

@@ -106,15 +106,19 @@ Mark the document `draft`.
      - **headline**: the role, in one line;
      - **introduction**: a short introductory word in the persona's own voice;
      - **work experience**: title, generic employer, city,
-       `MM.YYYY – MM.YYYY`, stack, and a few lines of what they did;
-     - **projects**: what was built, and its outcome;
+       `MM.YYYY – MM.YYYY`, stack, and a few lines naming the systems, teams
+       or processes they owned, specific to that employer's kind of business;
+     - **projects**: what was built, and its measured outcome, with a before
+       and an after. At least one per substantive position, typically two; a
+       junior position or side engagement may have none;
      - **education**: the path through the local education system;
      - **side activities**: volunteering, student life, side jobs, community;
      - **languages**, and how well each is spoken.
    - **How this person operates**, after the CV: how they behave in an
      interview, a disagreement, a salary conversation, and when giving
-     feedback. For each, how a staff-level interviewer reads it, and what in
-     the persona's path it traces to. Never nationality alone.
+     feedback. For each, how a staff-level interviewer reads it, including its
+     downside, and the specific event in the persona's path it traces to.
+     Never nationality alone, and never a general circumstance.
 3. **REAL PROJECTION**
    - A headline and intro built only from the profile file. Add no
      self-assessing adjective ("expert", "seasoned", "proven") that the profile
@@ -137,6 +141,11 @@ a question stated in full, repeated in the questions list.
 first public release. If the release year cannot be established, leave the
 technology out of the mirror. If the profile dates a technology before it
 existed, do not use the claim; raise a question naming the conflict.
+
+**Mirror results are concrete and measured.** The standard for level of detail:
+"the run went from about four hours to twenty minutes", not "several times
+faster". "Improved", "fell" or "several
+times" without a number is not an outcome.
 
 **The persona's life is variable, and checked.**
 - The number of positions follows a realistic path to the target seniority at
